@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LOR Writing Assistant
 
-## Getting Started
+An application to assist in creating standout Letters of Recommendation (LOR). It provides context-aware feedback aligned with target program expectations, trained on successful recommendation letters.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Form-based Generator**: Fill in details about the applicant, relationship, achievements, etc., to generate a customized LOR.
+- **Prompt-based Generator**: Enter a direct prompt to generate an LOR, restricted to recommendation letter content.
+- **Copy and Download**: Copy the generated letter to clipboard or download as PDF or DOC format.
+- **Responsive Design**: Works seamlessly on mobile, tablet, and desktop.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Database Schema
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The application uses PostgreSQL with the following tables:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Core Tables
+- **users**: User accounts and profiles
+- **letters**: Generated letters of recommendation with metadata
+- **lor_templates**: Predefined LOR templates for different scenarios
 
-## Learn More
+### Supporting Tables
+- **user_sessions**: Session management for authentication
+- **letter_versions**: Version history and revisions of letters
+- **user_preferences**: User settings and preferences
+- **api_usage**: API usage tracking and analytics
+- **user_feedback**: User feedback on generated letters
 
-To learn more about Next.js, take a look at the following resources:
+### Key Features
+- **User Management**: Profile management and preferences
+- **Content Storage**: Letters with full metadata and versioning
+- **History Tracking**: Complete audit trail of changes
+- **Usage Analytics**: API usage monitoring and cost tracking
+- **Template System**: Reusable LOR templates
+- **Feedback System**: User ratings and improvement suggestions
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Setup Instructions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Install Dependencies**:
+   ```bash
+   bun install
+   ```
 
-## Deploy on Vercel
+2. **Environment Variables**:
+   Create a `.env.local` file in the root directory and add:
+   ```
+   GROQ_API_KEY=your_groq_api_key_here
+   DATABASE_URL=postgresql://username:password@localhost:5432/lor_app
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Get Groq API Key**:
+   - Visit [https://console.groq.com/](https://console.groq.com/)
+   - Sign up and create an API key
+   - Copy the API key and add it to your `.env.local` file
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. **Database Setup**:
+   - Install PostgreSQL on your system
+   - Create a database named `lor_app`
+   - Update the `DATABASE_URL` in `.env.local` with your database credentials
+   - Initialize the database tables by visiting: `http://localhost:3000/api/init-db`
+
+5. **Run the Application**:
+   ```bash
+   bun run dev
+   ```
+
+6. **Access the App**:
+   Open [http://localhost:3000](http://localhost:3000) in your browser
+
+## Usage
+
+- Choose between Form-based or Prompt-based generator.
+- Fill in the required fields or enter a prompt.
+- Click "Generate Letter" to create the LOR.
+- Use the buttons to copy or download the letter.
+
+## API
+
+- `POST /api/generate`: Generates an LOR based on form data or prompt.
+
+## Contributing
+
+Feel free to contribute by opening issues or pull requests.
